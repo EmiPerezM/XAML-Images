@@ -1,0 +1,201 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
+
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+
+namespace _211_TDBNP_2P_PR02
+{
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class MainPage : Page
+    {
+
+        int contador = 1;
+        public MainPage()
+        {
+            this.InitializeComponent();
+        }
+
+        private void btnLeft_Click(object sender, RoutedEventArgs e)
+        {
+            if (contador < 8)
+            {
+                contador++;
+            }
+            else
+            {
+                contador = 1;
+            }
+            ImgChange(contador);
+        }
+
+        private void cmb1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (this.cmb1.SelectedIndex)
+            {
+                case 0:
+                   contador = 1 ;
+                    break;
+                case 1:
+                    contador = 2;
+                    break;
+                case 2:
+                    contador = 3;
+                    break;
+                case 3:
+                    contador = 4;
+                    break;
+                 
+            }
+            ImgChange(contador);
+        }
+        public void ImgChange(int contador)
+        {
+            string text = "";
+            this.imgPrincipal.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/banda_0" + contador + ".png"));
+            switch (contador)
+            {
+                case 1:
+                    text = "Metallica";
+                    break;
+                case 2:
+                    text = "Guns N Roses";
+                    break;
+                case 3:
+                    text = "Nirvana";
+                    break;
+                case 4:
+                    text = "AC-DC";
+                    break;
+                case 5:
+                    text = "Banda MS";
+                    break;
+                case 6:
+                    text = "Junior H";
+                    break;
+                case 7:
+                    text = "Megadeth";
+                    break;
+                case 8:
+                    text = "Angeles Azules";
+                    break;
+            }
+            this.txtDescription.Text = text;
+
+        }
+
+        private void btnRight_Click(object sender, RoutedEventArgs e)
+        {
+            if (contador < 8)
+            {
+                contador++;
+            }
+            else
+            {
+                contador = 1; 
+            }
+            ImgChange(contador);
+        }
+
+        private void cmb2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch ( cmb2.SelectedIndex )
+            {
+                case 0:
+                     contador = 5;
+                    break;
+                case 1:
+                    contador = 6;
+                    break;
+                case 2:
+                    contador = 7;
+                    break;
+                case 3:
+                    contador = 8;
+                    break;
+
+            }ImgChange(contador);
+        }
+
+        private void _switch_Toggled(object sender, RoutedEventArgs e)
+        {
+            if(_switch.IsOn)
+            {
+                cmb1.Opacity = 0;cmb2.Opacity = 100; 
+            } 
+            else 
+            { 
+                cmb2.Opacity = 0;
+                cmb1.Opacity = 100; 
+            }
+        }
+    }
+}
+
+XAML
+
+<Page
+    x:Class="_211_TDBNP_2P_PR02.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_211_TDBNP_2P_PR02"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="White">
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FFBD4141" Offset="1"/>
+                <GradientStop Color="#FF337C94" Offset="0.047"/>
+                <GradientStop Color="#FFA54A4E" Offset="1"/>
+                <GradientStop Color="#FEFFFFFF" Offset="0.129"/>
+                <GradientStop Color="#FEFFFFFF" Offset="0.854"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="163*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="362*"/>
+            <ColumnDefinition Width="75*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="txtTitle" Grid.Column="1" Margin="236,14,242,14" TextWrapping="Wrap" Text="BANDAS" FontSize="36" TextAlignment="Center"  />
+        <TextBlock x:Name="txtDescription" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="METALLICA" FontSize="24" Margin="296,11,270,32" TextAlignment="Center" Height="32"/>
+        <Button x:Name="btnRight" Grid.Column="2" Content="&gt;" Margin="25,139,26,150" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black" BorderBrush="Red" Background="#33B9B830" FontSize="72" Click="btnRight_Click" FocusVisualSecondaryBrush="#99FFFFFF" FocusVisualPrimaryBrush="White"/>
+        <Button x:Name="btnLeft" Content="&lt;" Margin="25,134,26,155" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="#FF110000" BorderBrush="Red" Background="#33C4C416" FontSize="72" Click="btnLeft_Click"/>
+        <Image x:Name="imgPrincipal" Grid.Column="1" Grid.RowSpan="3" Margin="0,111,219,117" Source="/Assets/Images/banda_01.png" Stretch="Fill" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="cmb1" Margin="50,46,50,0" Grid.Row="1" HorizontalAlignment="Stretch" Opacity="0" SelectionChanged="cmb1_SelectionChanged">
+            <ComboBoxItem Content="METALLICA"/>
+            <ComboBoxItem Content="GUNS N ROSES"/>
+            <ComboBoxItem Content="NIRVANA"/>
+            <ComboBoxItem Content="ACDC"/>
+        </ComboBox>
+        <ComboBox x:Name="cmb2" Margin="49,46,50,0" Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="2" SelectionChanged="cmb2_SelectionChanged" Opacity="0">
+            <ComboBoxItem Content="BANDA MS"/>
+            <ComboBoxItem Content="JUNIOR H"/>
+            <ComboBoxItem Content="MEGADETH"/>
+            <ComboBoxItem Content="ANGELES AZULES"/>
+        </ComboBox>
+        <ToggleSwitch x:Name="_switch" Header="ToggleSwitch" Margin="50,31,16,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Toggled="_switch_Toggled"/>
+    </Grid>
+</Page>
